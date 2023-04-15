@@ -10,7 +10,7 @@
     "db:down": "docker-compose down",
     "db:shell": "docker exec -it classical_db /bin/bash",
     "db:migrate:up": "npx dbmate up && npx kysely-codegen",
-    "db:migrate:up:prod": "npx dbmate up && npx kysely-codegen",
+    "db:migrate:up:prod": "npx dbmate up",
     "db:migrate:down": "npx dbmate down",
     "db:reset": "npx dbmate drop && npm run db:migrate:up",
     "format": "npx prettier --write ./app",

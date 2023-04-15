@@ -1,5 +1,5 @@
 -- migrate:up
-CREATE TABLE app_user (
+CREATE TABLE IF NOT EXISTS app_user (
     id SERIAL PRIMARY KEY,
     email VARCHAR(100) NOT NULL
 );
