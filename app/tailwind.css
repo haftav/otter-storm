@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "source-sans";
+  src: url("/fonts/SourceSansPro-Regular.ttf");
+}
+
+@font-face {
+  font-family: "source-sans";
+  src: url("/fonts/SourceSansPro-SemiBold.ttf");
+  font-weight: bold;
+}

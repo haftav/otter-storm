@@ -1,3 +1,4 @@
+import { parse } from 'cookie';
 import { createCookieSessionStorage } from '@remix-run/node';
 
 export const sessionStorage = createCookieSessionStorage({
@@ -10,3 +11,11 @@ export const sessionStorage = createCookieSessionStorage({
         secure: process.env.NODE_ENV === 'production', // enable this in prod only
     },
 });
+
+export function parseTheme(cookies: string | null) {
+    if (!cookies) {
+        return null;
+    }
+
+    return parse(cookies).theme ?? null;
+}

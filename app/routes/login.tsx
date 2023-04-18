@@ -1,5 +1,7 @@
 import { SocialsProvider } from 'remix-auth-socials';
 
+import { Button } from '@/ui/button';
+
 interface SocialButtonProps {
     provider: SocialsProvider;
     label: string;
@@ -7,7 +9,7 @@ interface SocialButtonProps {
 
 const SocialButton: React.FC<SocialButtonProps> = ({ provider, label }) => (
     <form action={`/auth/${provider}`} method="post">
-        <button>{label}</button>
+        <Button>{label}</Button>
     </form>
 );
 

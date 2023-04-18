@@ -1,7 +1,7 @@
 import { Authenticator } from 'remix-auth';
 import { GoogleStrategy, SocialsProvider } from 'remix-auth-socials';
 
-import { sessionStorage } from '@/lib/session-storage.server';
+import { sessionStorage } from '@/lib/cookie.server';
 
 import { createUser, findUserByEmail } from '@/services/user.server';
 
