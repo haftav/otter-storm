@@ -12,7 +12,7 @@ import {
 
 import { parseTheme } from '@/lib/cookie.server';
 
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider, ThemeScript, Theme, isTheme } from '@/components/theme';
 
 import styles from './tailwind.css';
 
@@ -24,20 +24,6 @@ export const meta: MetaFunction = () => ({
     viewport: 'width=device-width,initial-scale=1',
 });
 
-type Theme = 'light' | 'dark' | 'system';
-
-function isTheme(maybeTheme?: string): maybeTheme is Theme {
-    if (!maybeTheme) {
-        return false;
-    }
-
-    return (
-        maybeTheme === 'light' ||
-        maybeTheme === 'dark' ||
-        maybeTheme === 'system'
-    );
-}
-
 export async function loader({ request }: LoaderArgs) {
     const cookies = request.headers.get('Cookie');
     const themeData = parseTheme(cookies);
@@ -48,24 +34,6 @@ export async function loader({ request }: LoaderArgs) {
         theme,
     });
 }
-
-const ThemeScript = (props: { initialTheme: string | null }) => {
-    const { initialTheme } = props;
-
-    let script = React.useMemo(
-        () => `
-      let colorScheme = ${JSON.stringify(initialTheme)};
-      if (colorScheme === "system") {
-        let media = window.matchMedia("(prefers-color-scheme: dark)")
-        if (media.matches) document.documentElement.classList.add("dark");
-      }
-    `,
-        [] // eslint-disable-line
-        // we don't want this script to ever change
-    );
-
-    return <script dangerouslySetInnerHTML={{ __html: script }} />;
-};
 
 export default function App() {
     const { theme } = useLoaderData<typeof loader>();
@@ -81,7 +49,7 @@ export default function App() {
                 <Meta />
                 <Links />
             </head>
-            <body className="dark:bg-slate-900">
+            <body className="bg-background">
                 <ThemeProvider value={theme}>
                     <Outlet />
                 </ThemeProvider>
