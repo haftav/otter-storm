@@ -1,7 +1,7 @@
 import type { LoaderArgs } from '@remix-run/node';
-import type { User } from '@/models';
 
-import { Outlet } from '@remix-run/react';
+import * as React from 'react';
+import { Outlet, useLocation, useNavigation } from '@remix-run/react';
 import { json } from '@remix-run/node';
 import { Link, useLoaderData } from '@remix-run/react';
 import { Menu } from 'lucide-react';
@@ -49,28 +49,59 @@ const LoggedOut = () => {
     );
 };
 
+function useCloseOnNavigate(closeMenu: () => void) {
+    const location = useLocation();
+
+    React.useEffect(() => {
+        closeMenu();
+    }, [location, closeMenu]);
+}
+
 export default function AppLayout() {
     const data = useLoaderData<typeof loader>();
 
     const [theme, setTheme] = useTheme();
 
+    const [isOpen, setIsOpen] = React.useState(false);
+
+    useCloseOnNavigate(React.useCallback(() => setIsOpen(false), []));
+
     return (
         <div>
             <header className="h-20 w-full border-b shadow-sm z-10 bg-background flex justify-between items-center fixed top-0 px-4">
-                <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-                    Clonist
-                </h1>
-                <Drawer>
+                <Link to="/">
+                    <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                        Clonist
+                    </h1>
+                </Link>
+                <Drawer
+                    open={isOpen}
+                    onOpenChange={(isOpen) => setIsOpen(isOpen)}
+                >
                     <DrawerContent position="top" size="content">
                         <DrawerHeader>
                             <DrawerTitle>Clonist</DrawerTitle>
                         </DrawerHeader>
                         <Separator className="my-6" />
-                        <div className="h-24">
-                            {data.user ? <div>{data.user.email}</div> : null}
+                        <div>
+                            <div>
+                                <Link to="/" className="text-lg">
+                                    Home
+                                </Link>
+                            </div>
+                            <div>
+                                <Link to="job/create" className="text-lg">
+                                    Add job
+                                </Link>
+                            </div>
                         </div>
                         <Separator className="my-6" />
                         <DrawerFooter>
+                            <div className="h-16">
+                                {data.user ? (
+                                    <div>{data.user.email}</div>
+                                ) : null}
+                            </div>
                             <div className="flex w-full justify-between">
                                 {data.user ? <LoggedIn /> : <LoggedOut />}
                                 <ChooseTheme

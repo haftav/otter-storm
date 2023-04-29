@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { json, LinksFunction, LoaderArgs, MetaFunction } from '@remix-run/node';
+import type { LinksFunction, LoaderArgs, MetaFunction } from '@remix-run/node';
+import { json } from '@remix-run/node';
 import {
     Links,
     LiveReload,
@@ -12,7 +13,8 @@ import {
 
 import { parseTheme } from '@/lib/cookie.server';
 
-import { ThemeProvider, ThemeScript, Theme, isTheme } from '@/components/theme';
+import type { Theme} from '@/components/theme';
+import { ThemeProvider, ThemeScript, isTheme } from '@/components/theme';
 
 import styles from './tailwind.css';
 

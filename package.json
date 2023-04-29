@@ -46,7 +46,8 @@
     "remix-auth": "^3.4.0",
     "remix-auth-socials": "^2.0.4",
     "tailwind-merge": "^1.12.0",
-    "tailwindcss-animate": "^1.0.5"
+    "tailwindcss-animate": "^1.0.5",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.13.0",

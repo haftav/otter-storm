@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as DrawerPrimitive from '@radix-ui/react-dialog';
-import { VariantProps, cva } from 'class-variance-authority';
+import type { VariantProps} from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import { X } from 'lucide-react';
 
 import { cn } from '@/utils';
@@ -185,7 +186,7 @@ const DrawerFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
     <div
         className={cn(
-            'flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2',
+            'flex flex-col sm:flex-row sm:justify-end sm:space-x-2',
             className
         )}
         {...props}
